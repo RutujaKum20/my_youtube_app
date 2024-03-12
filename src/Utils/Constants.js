@@ -1,5 +1,3 @@
-// const GOOGLE_API_KEY = "AIzaSyAnwj2ESWJ8IfOptEwzvxzOF2AA0kRrlPg";
-
 export const LIVE_CHAT_COUNT = 10;
 
 export const YOUTUBE_VIDEO_API =
