@@ -13,7 +13,22 @@ const Head = () => {
 
   const searchCache = useSelector((store) => store.search);
 
+  const dispatch = useDispatch();
+
   useEffect(() => {
+    const getSearchSuggestions = async () => {
+      const data = await fetch(YOUTUBE_SEARCH_API + searchText);
+      const json = await data.json();
+      console.log(json);
+      setSuggestions(json[1]);
+
+      // update cache
+      dispatch(
+        chacheResult({
+          [searchText]: json[1],
+        })
+      );
+    };
     const timer = setTimeout(() => {
       if (searchCache[searchText]) {
         setSuggestions(searchCache[searchText]);
@@ -25,26 +40,10 @@ const Head = () => {
     return () => {
       clearTimeout(timer);
     };
-  }, [searchText]);
-
-  const getSearchSuggestions = async () => {
-    const data = await fetch(YOUTUBE_SEARCH_API + searchText);
-    const json = await data.json();
-    console.log(json);
-    setSuggestions(json[1]);
-
-    // update cache
-    displatch(
-      chacheResult({
-        [searchText]: json[1],
-      })
-    );
-  };
-
-  const displatch = useDispatch();
+  }, [dispatch, searchCache, searchText]);
 
   const ToggleMenuHandler = () => {
-    displatch(toggleMenu());
+    dispatch(toggleMenu());
   };
 
   return (

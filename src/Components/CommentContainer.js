@@ -1,5 +1,4 @@
 import React from "react";
-import Comments from "./Comments";
 import CommentsList from "./CommentsList";
 
 const commentdata = [
